@@ -70,7 +70,7 @@ const getText = async (articleUrl) => {
 } 
  
 app.get("/", (req, res) => {
-  res.send("tester")
+  res.send("testers")
     // Axios.get(newsApiUrl, { headers: {
     //     "Content-Type": "application/json",
     //     "Authorization" : `Bearer ${newsApiToken}`}
