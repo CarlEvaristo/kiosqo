@@ -70,17 +70,18 @@ const getText = async (articleUrl) => {
 } 
  
 app.get("/", (req, res) => {
-    Axios.get(newsApiUrl, { headers: {
-        "Content-Type": "application/json",
-        "Authorization" : `Bearer ${newsApiToken}`}
-        })
-        .then(async response => {
-            res.send(await response.data.articles.map(async article => {
-                let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
-                return await getCompletion(myPrompt)
-            }))
-        })
-        .catch(err => res.send(err))    
+  res.send("tester")
+    // Axios.get(newsApiUrl, { headers: {
+    //     "Content-Type": "application/json",
+    //     "Authorization" : `Bearer ${newsApiToken}`}
+    //     })
+    //     .then(async response => {
+    //         res.send(await response.data.articles.map(async article => {
+    //             let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
+    //             return await getCompletion(myPrompt)
+    //         }))
+    //     })
+    //     .catch(err => res.send(err))    
 })
 
 // app.get("/", (req, res) => {
