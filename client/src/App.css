@@ -1,0 +1,25 @@
+main {
+  min-height: 90vh;
+  padding-top:10vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);  
+  background-attachment: fixed;
+}
+.container {
+  width: 50vw;
+  padding: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+@media (max-width:800px) {
+  .container {
+    width: 100vw;
+    background-color: rgb(238, 238, 238);
+  }
+}
