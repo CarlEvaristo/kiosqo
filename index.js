@@ -14,7 +14,7 @@ const newsApiToken = 'f390ce69bfaf4453821796ae7fa44bef'
  
 //openai config files
 const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.REACT_APP_API_KEY,
 })
 // const openai = new OpenAIApi(configuration);
 // const responseOpenai = await openai.createCompletion({
