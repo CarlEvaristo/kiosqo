@@ -14,39 +14,31 @@ const newsApiToken = 'f390ce69bfaf4453821796ae7fa44bef'
  
 //openai config files
 const configuration = new Configuration({
-    apiKey: process.env.REACT_APP_API_KEY,
+    apiKey: process.env.API_KEY,
 })
-// const openai = new OpenAIApi(configuration);
-// const responseOpenai = await openai.createCompletion({
-//   model: "text-davinci-003",
-//   prompt: "Say this is a test",
-//   max_tokens: 7,
-//   temperature: 0,
-// })
+
 
 //////////////////////////////////////
 
-async function run() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://www.nbcnews.com/politics/white-house/democratic-allies-grow-frustrated-white-house-response-bidens-classifi-rcna65616');
-    const text = await page.evaluate(() => Array.from(document.querySelectorAll("p, h2")).map(ele => ele.innerHTML )) 
+// async function run() {
+//     const browser = await puppeteer.launch();
+//     const page = await browser.newPage();
+//     await page.goto('https://www.nbcnews.com/politics/white-house/democratic-allies-grow-frustrated-white-house-response-bidens-classifi-rcna65616');
+//     const text = await page.evaluate(() => Array.from(document.querySelectorAll("p, h2")).map(ele => ele.innerHTML )) 
 
-    let plainTxt = ""
+//     let plainTxt = ""
 
-    text.forEach(item => {
-        const text = convert(item, {
-            wordwrap: 130
-        });
-        plainTxt += `\n${text}\n`  
-    })
+//     text.forEach(item => {
+//         const text = convert(item, {
+//             wordwrap: 130
+//         });
+//         plainTxt += `\n${text}\n`  
+//     })
+//     console.log(plainTxt.slice(0,2000)) 
+//     await browser.close()
+// }
 
-    console.log(plainTxt.slice(0,2000)) 
-    await browser.close()
- 
-}
 
-run(); 
 
 //////////////////////////////////////
 
@@ -78,26 +70,18 @@ const getText = async (articleUrl) => {
     return html;
 } 
  
-// (async () => {
-//   const mostTextDiv = await getText();
-//   console.log(mostTextDiv);
-// })();
-
-
-
-
-
 app.get("/", (req, res) => {
     Axios.get(newsApiUrl, { headers: {
         "Content-Type": "application/json",
         "Authorization" : `Bearer ${newsApiToken}`}
         })
         .then(async response => {
-            response.data.articles.map(async article => {
-                let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
-                let openAi = await getCompletion(myPrompt)
-                return openAi
-            })
+            console.log(response.data.articles[0])
+            // response.data.articles.map(async article => {
+            //     let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
+            //     let summary = await getCompletion(myPrompt)
+            //     return summary
+            // })
         })
         .catch(err => res.send(err))    
 })
