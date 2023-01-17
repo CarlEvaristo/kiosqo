@@ -8,7 +8,6 @@ import { convert } from 'html-to-text'
 const app = express()
 app.use(cors())
 
-
 // newsapi config files
 const newsApiUrl = "https://newsapi.org/v2/top-headlines?country=us&pageSize=1"
 const newsApiToken = 'f390ce69bfaf4453821796ae7fa44bef'
@@ -67,8 +66,7 @@ const getText = async (articleUrl) => {
         return document.querySelector("body").innerHTML
       });
     await browser.close(); 
-    console.log(html.slice(0,2000)) 
-    return html;
+    return html.slice(0,2000);
 } 
  
 app.get("/", (req, res) => {
@@ -77,12 +75,10 @@ app.get("/", (req, res) => {
         "Authorization" : `Bearer ${newsApiToken}`}
         })
         .then(async response => {
-            console.log(response.data.articles[0])
-            // response.data.articles.map(async article => {
-            //     let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
-            //     let summary = await getCompletion(myPrompt)
-            //     return summary
-            // })
+            res.send(await response.data.articles.map(async article => {
+                let myPrompt = `write me a news article summary in 200 words in json format: {"title": ${article.title}, "summary": summary, "url": ${article.url}} of the news article text from this scraped website ui textcontent: ${await getText(article.url)}`
+                return await getCompletion(myPrompt)
+            }))
         })
         .catch(err => res.send(err))    
 })
@@ -99,6 +95,7 @@ app.get("/", (req, res) => {
 //         .catch(err=> res.send(err))
         
 // })
-  
 
-app.listen(3001, ()=>console.log("server running on port 3001"))
+
+app.listen(process.env.PORT || 3001, ()=>console.log("server running on port 3001")) 
+
