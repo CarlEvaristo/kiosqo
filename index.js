@@ -8,6 +8,7 @@ import { convert } from 'html-to-text'
 const app = express()
 app.use(cors())
 
+
 // newsapi config files
 const newsApiUrl = "https://newsapi.org/v2/top-headlines?country=us&pageSize=1"
 const newsApiToken = 'f390ce69bfaf4453821796ae7fa44bef'
