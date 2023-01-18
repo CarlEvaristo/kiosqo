@@ -69,7 +69,7 @@ const getText = async (articleUrl) => {
     return html.slice(0,2000);
 } 
  
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("testers")
     // Axios.get(newsApiUrl, { headers: {
     //     "Content-Type": "application/json",
@@ -84,18 +84,18 @@ app.get("/", (req, res) => {
     //     .catch(err => res.send(err))    
 })
 
-// app.get("/", (req, res) => {
-//     const url = "https://newsapi.org/v2/top-headlines?country=us"
-//     const tokenStr = 'f390ce69bfaf4453821796ae7fa44bef'
+app.get("/", (req, res) => {
+    const url = "https://newsapi.org/v2/top-headlines?country=us"
+    const tokenStr = 'f390ce69bfaf4453821796ae7fa44bef'
 
-//     Axios.get(url, { headers: {
-//         "Content-Type": "application/json",
-//         "Authorization" : `Bearer ${tokenStr}`}
-//     })
-//         .then(response => res.send(response.data.articles))
-//         .catch(err=> res.send(err))
+    Axios.get(url, { headers: {
+        "Content-Type": "application/json",
+        "Authorization" : `Bearer ${tokenStr}`}
+    })
+        .then(response => res.send(response.data.articles))
+        .catch(err=> res.send(err))
         
-// })
+})
 
 
 app.listen(process.env.PORT || 3001, ()=>console.log("server running on port 3001")) 
